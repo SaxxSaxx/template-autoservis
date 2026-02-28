@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Rezervácia | Salón Krásy</title>
+    <title>Online Objednávka | AutoPro Servis</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%); 
             min-height: 100vh; 
             padding: 20px;
         }
@@ -21,7 +21,7 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         }
         .header { 
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%); 
+            background: linear-gradient(135deg, #e63946 0%, #c1121f 100%); 
             color: white; 
             padding: 30px; 
             text-align: center;
@@ -44,11 +44,10 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        .step.active { background: white; color: #c44569; }
+        .step.active { background: white; color: #c1121f; }
         .step.completed { background: #4CAF50; color: white; }
         .content { padding: 30px; }
         
-        /* Step 1 - Service Selection */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -63,21 +62,17 @@
             transition: all 0.3s;
             text-align: center;
         }
-        .service-card:hover { border-color: #ff6b9d; transform: translateY(-5px); }
+        .service-card:hover { border-color: #e63946; transform: translateY(-5px); }
         .service-card.selected { 
-            border-color: #ff6b9d; 
-            background: linear-gradient(135deg, #ff6b9d20 0%, #c4456920 100%);
+            border-color: #e63946; 
+            background: linear-gradient(135deg, #e6394620 0%, #c1121f20 100%);
         }
         .service-icon { font-size: 3rem; margin-bottom: 15px; }
         .service-name { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
-        .service-price { color: #c44569; font-size: 1.5rem; font-weight: bold; }
+        .service-price { color: #e63946; font-size: 1.5rem; font-weight: bold; }
         .service-duration { color: #666; font-size: 0.9rem; }
         
-        /* Step 2 - Calendar */
-        .calendar-container {
-            display: none;
-            margin-top: 20px;
-        }
+        .calendar-container { display: none; margin-top: 20px; }
         .calendar-header {
             display: flex;
             justify-content: space-between;
@@ -85,7 +80,7 @@
             margin-bottom: 20px;
         }
         .calendar-nav {
-            background: #ff6b9d;
+            background: #e63946;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -93,22 +88,13 @@
             cursor: pointer;
             font-size: 1.2rem;
         }
-        .calendar-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
+        .calendar-title { font-size: 1.5rem; font-weight: 600; }
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 10px;
         }
-        .day-header {
-            text-align: center;
-            font-weight: 600;
-            color: #666;
-            padding: 10px;
-        }
+        .day-header { text-align: center; font-weight: 600; color: #666; padding: 10px; }
         .day-cell {
             aspect-ratio: 1;
             display: flex;
@@ -120,31 +106,11 @@
             transition: all 0.3s;
             font-weight: 500;
         }
-        .day-cell:hover:not(.disabled):not(.selected) {
-            border-color: #ff6b9d;
-            background: #ff6b9d10;
-        }
-        .day-cell.selected {
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-            color: white;
-            border-color: #c44569;
-        }
-        .day-cell.disabled {
-            color: #ccc;
-            cursor: not-allowed;
-            background: #f5f5f5;
-        }
-        .day-cell.today {
-            border-color: #667eea;
-            font-weight: bold;
-        }
+        .day-cell:hover:not(.disabled) { border-color: #e63946; background: #e6394610; }
+        .day-cell.selected { background: linear-gradient(135deg, #e63946 0%, #c1121f 100%); color: white; border-color: #c1121f; }
+        .day-cell.disabled { color: #ccc; cursor: not-allowed; background: #f5f5f5; }
         
-        /* Time Slots */
-        .time-slots {
-            display: none;
-            margin-top: 30px;
-        }
-        .time-slots h3 { margin-bottom: 15px; color: #333; }
+        .time-slots { display: none; margin-top: 30px; }
         .slots-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -158,50 +124,24 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .time-slot:hover:not(.disabled) {
-            border-color: #ff6b9d;
-        }
-        .time-slot.selected {
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-            color: white;
-            border-color: #c44569;
-        }
-        .time-slot.disabled {
-            background: #f5f5f5;
-            color: #999;
-            cursor: not-allowed;
-        }
+        .time-slot:hover { border-color: #e63946; }
+        .time-slot.selected { background: linear-gradient(135deg, #e63946 0%, #c1121f 100%); color: white; border-color: #c1121f; }
         
-        /* Step 3 - Contact Form */
-        .contact-form {
-            display: none;
-            margin-top: 20px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-        .form-group input,
-        .form-group textarea {
+        .contact-form { display: none; margin-top: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 15px;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             font-size: 16px;
-            transition: border-color 0.3s;
         }
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
-            border-color: #ff6b9d;
+            border-color: #e63946;
         }
         
-        /* Summary */
         .summary {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             padding: 20px;
@@ -214,16 +154,8 @@
             padding: 10px 0;
             border-bottom: 1px solid #dee2e6;
         }
-        .summary-item:last-child { border-bottom: none; }
-        .summary-label { color: #666; }
-        .summary-value { font-weight: 600; color: #333; }
         
-        /* Buttons */
-        .btn-container {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
+        .btn-container { display: flex; gap: 15px; margin-top: 30px; }
         .btn {
             flex: 1;
             padding: 15px 30px;
@@ -235,41 +167,17 @@
             transition: all 0.3s;
         }
         .btn-primary {
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            background: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
             color: white;
         }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(196,69,105,0.4); }
         .btn-secondary {
             background: #f8f9fa;
             color: #333;
             border: 2px solid #e0e0e0;
         }
-        .btn-secondary:hover { background: #e9ecef; }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
         
-        /* Success */
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-        .success-icon {
-            font-size: 100px;
-            margin-bottom: 20px;
-        }
-        .success-message h2 {
-            color: #4CAF50;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        .success-message p {
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
+        .success-message { display: none; text-align: center; padding: 40px; }
+        .success-icon { font-size: 100px; margin-bottom: 20px; }
         
         @media (max-width: 600px) {
             .slots-grid { grid-template-columns: repeat(2, 1fr); }
@@ -280,7 +188,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📅 Online Rezervácia</h1>
+            <h1>🔧 Online Objednávka Servisu</h1>
             <p>Vyberte si termín vhodný pre vás</p>
             <div class="progress-bar">
                 <div class="step active" id="step1-indicator">1</div>
@@ -294,29 +202,41 @@
             <div id="step1">
                 <h2>Vyberte službu</h2>
                 <div class="services-grid">
-                    <div class="service-card" onclick="selectService('strihanie', 'Strihanie', 15)">
-                        <div class="service-icon">✂️</div>
-                        <div class="service-name">Strihanie</div>
-                        <div class="service-price">15€</div>
+                    <div class="service-card" onclick="selectService('diagnostika', 'Počítačová diagnostika', 25)">
+                        <div class="service-icon">🔌</div>
+                        <div class="service-name">Počítačová diagnostika</div>
+                        <div class="service-price">25€</div>
                         <div class="service-duration">⏱️ 30 min</div>
                     </div>
-                    <div class="service-card" onclick="selectService('farbenie', 'Farbenie', 35)">
-                        <div class="service-icon">🎨</div>
-                        <div class="service-name">Farbenie</div>
+                    <div class="service-card" onclick="selectService('vymena-oleja', 'Výmena oleja a filtrov', 35)">
+                        <div class="service-icon">🛢️</div>
+                        <div class="service-name">Výmena oleja a filtrov</div>
                         <div class="service-price">35€</div>
-                        <div class="service-duration">⏱️ 90 min</div>
-                    </div>
-                    <div class="service-card" onclick="selectService('styling', 'Styling', 25)">
-                        <div class="service-icon">💇</div>
-                        <div class="service-name">Styling</div>
-                        <div class="service-price">25€</div>
                         <div class="service-duration">⏱️ 45 min</div>
                     </div>
-                    <div class="service-card" onclick="selectService('osetrenie', 'Ošetrenie vlasov', 20)">
-                        <div class="service-icon">🌿</div>
-                        <div class="service-name">Ošetrenie vlasov</div>
+                    <div class="service-card" onclick="selectService('brzdy', 'Oprava brzdového systému', 80)">
+                        <div class="service-icon">🛑</div>
+                        <div class="service-name">Oprava brzdového systému</div>
+                        <div class="service-price">80€</div>
+                        <div class="service-duration">⏱️ 90 min</div>
+                    </div>
+                    <div class="service-card" onclick="selectService('pneu', 'Výmena pneumatík', 20)">
+                        <div class="service-icon">🛞</div>
+                        <div class="service-name">Výmena pneumatík</div>
                         <div class="service-price">20€</div>
+                        <div class="service-duration">⏱️ 30 min</div>
+                    </div>
+                    <div class="service-card" onclick="selectService('klimatizacia', 'Servis klimatizácie', 45)">
+                        <div class="service-icon">❄️</div>
+                        <div class="service-name">Servis klimatizácie</div>
+                        <div class="service-price">45€</div>
                         <div class="service-duration">⏱️ 60 min</div>
+                    </div>
+                    <div class="service-card" onclick="selectService('mechanika', 'Mechanická oprava', 0)">
+                        <div class="service-icon">🔧</div>
+                        <div class="service-name">Mechanická oprava</div>
+                        <div class="service-price">Cena dohodou</div>
+                        <div class="service-duration">⏱️ Podľa zložitosti</div>
                     </div>
                 </div>
                 
@@ -354,24 +274,24 @@
 
             <!-- Step 3: Contact Form -->
             <div id="step3" class="contact-form">
-                <h2>Vaše údaje</h2>
+                <h2>Vaše údaje a vozidlo</h2>
                 
                 <div class="summary">
                     <div class="summary-item">
-                        <span class="summary-label">Služba:</span>
-                        <span class="summary-value" id="summary-service">-</span>
+                        <span>Služba:</span>
+                        <span id="summary-service">-</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Dátum:</span>
-                        <span class="summary-value" id="summary-date">-</span>
+                        <span>Dátum:</span>
+                        <span id="summary-date">-</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Čas:</span>
-                        <span class="summary-value" id="summary-time">-</span>
+                        <span>Čas:</span>
+                        <span id="summary-time">-</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Cena:</span>
-                        <span class="summary-value" id="summary-price">-</span>
+                        <span>Cena:</span>
+                        <span id="summary-price">-</span>
                     </div>
                 </div>
                 
@@ -391,14 +311,24 @@
                 </div>
                 
                 <div class="form-group">
+                    <label>Značka a model vozidla *</label>
+                    <input type="text" id="car" placeholder="napr. Škoda Octavia 2018" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>ŠPZ (evidenčné číslo)</label>
+                    <input type="text" id="spz" placeholder="napr. BA123AB">
+                </div>
+                
+                <div class="form-group">
                     <label>Poznámka (nepovinné)</label>
-                    <textarea id="note" rows="3" placeholder="Špeciálne požiadavky..."></textarea>
+                    <textarea id="note" rows="3" placeholder="Popis problému, špeciálne požiadavky..."></textarea>
                 </div>
                 
                 <div class="btn-container">
                     <button class="btn btn-secondary" onclick="goToStep2()">← Späť</button>
                     <button class="btn btn-primary" onclick="submitBooking()">
-                        ✅ Potvrdiť rezerváciu
+                        ✅ Potvrdiť objednávku
                     </button>
                 </div>
             </div>
@@ -406,10 +336,10 @@
             <!-- Success Message -->
             <div id="success" class="success-message">
                 <div class="success-icon">🎉</div>
-                <h2>Rezervácia potvrdená!</h2>
-                <p>Ďakujeme za vašu rezerváciu. Potvrdíme vám ju do 24 hodín.</p>
+                <h2>Objednávka prijatá!</h2>
+                <p>Ďakujeme za vašu objednávku. Potvrdíme vám ju do 24 hodín.</p>
                 <button class="btn btn-primary" onclick="location.reload()">
-                    Nová rezervácia
+                    Nová objednávka
                 </button>
             </div>
         </div>
@@ -424,22 +354,14 @@
         let selectedTime = null;
         let currentDate = new Date();
 
-        const timeSlots = [
-            '9:00', '9:30', '10:00', '10:30', '11:00', '11:30',
-            '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-            '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'
-        ];
+        const timeSlots = ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
 
         function selectService(id, name, price) {
             selectedService = id;
             selectedServiceName = name;
             selectedPrice = price;
-            
-            document.querySelectorAll('.service-card').forEach(card => {
-                card.classList.remove('selected');
-            });
+            document.querySelectorAll('.service-card').forEach(card => card.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
-            
             document.getElementById('btn-step1').disabled = false;
         }
 
@@ -463,11 +385,10 @@
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'block';
             updateProgress(3);
-            
             document.getElementById('summary-service').textContent = selectedServiceName;
             document.getElementById('summary-date').textContent = selectedDate.toLocaleDateString('sk-SK');
             document.getElementById('summary-time').textContent = selectedTime;
-            document.getElementById('summary-price').textContent = selectedPrice + '€';
+            document.getElementById('summary-price').textContent = selectedPrice ? selectedPrice + '€' : 'Cena dohodou';
         }
 
         function updateProgress(step) {
@@ -483,9 +404,7 @@
         function renderCalendar() {
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
-            
-            const monthNames = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún',
-                              'Júl', 'August', 'September', 'Október', 'November', 'December'];
+            const monthNames = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
             document.getElementById('calendarTitle').textContent = `${monthNames[month]} ${year}`;
             
             const firstDay = new Date(year, month, 1).getDay();
@@ -493,35 +412,21 @@
             const today = new Date();
             
             let html = `
-                <div class="day-header">Po</div>
-                <div class="day-header">Ut</div>
-                <div class="day-header">St</div>
-                <div class="day-header">Št</div>
-                <div class="day-header">Pi</div>
-                <div class="day-header">So</div>
-                <div class="day-header">Ne</div>
+                <div class="day-header">Po</div><div class="day-header">Ut</div><div class="day-header">St</div>
+                <div class="day-header">Št</div><div class="day-header">Pi</div><div class="day-header">So</div><div class="day-header">Ne</div>
             `;
             
-            // Empty cells before first day
-            for (let i = 0; i < (firstDay === 0 ? 6 : firstDay - 1); i++) {
-                html += '<div></div>';
-            }
+            for (let i = 0; i < (firstDay === 0 ? 6 : firstDay - 1); i++) html += '<div></div>';
             
-            // Days
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month, day);
-                const isToday = date.toDateString() === today.toDateString();
                 const isPast = date < new Date(today.setHours(0,0,0,0));
                 const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
-                
                 let classes = 'day-cell';
-                if (isToday) classes += ' today';
                 if (isPast) classes += ' disabled';
                 if (isSelected) classes += ' selected';
-                
                 html += `<div class="${classes}" onclick="${isPast ? '' : `selectDate(${year}, ${month}, ${day})`}">${day}</div>`;
             }
-            
             document.getElementById('calendar').innerHTML = html;
         }
 
@@ -537,19 +442,10 @@
         }
 
         function renderTimeSlots() {
-            const container = document.getElementById('timeSlotsContainer');
-            const grid = document.getElementById('slotsGrid');
-            container.style.display = 'block';
-            
-            // Randomly disable some slots to simulate availability
-            grid.innerHTML = timeSlots.map(time => {
-                const isDisabled = Math.random() < 0.3;
+            document.getElementById('timeSlotsContainer').style.display = 'block';
+            document.getElementById('slotsGrid').innerHTML = timeSlots.map(time => {
                 const isSelected = selectedTime === time;
-                let classes = 'time-slot';
-                if (isDisabled) classes += ' disabled';
-                if (isSelected) classes += ' selected';
-                
-                return `<div class="${classes}" onclick="${isDisabled ? '' : `selectTime('${time}')`}">${time}</div>`;
+                return `<div class="time-slot ${isSelected ? 'selected' : ''}" onclick="selectTime('${time}')">${time}</div>`;
             }).join('');
         }
 
@@ -563,8 +459,9 @@
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
+            const car = document.getElementById('car').value;
             
-            if (!name || !phone || !email) {
+            if (!name || !phone || !email || !car) {
                 alert('Prosím vyplňte všetky povinné polia.');
                 return;
             }
@@ -574,27 +471,21 @@
                 date: selectedDate,
                 time: selectedTime,
                 price: selectedPrice,
-                name: name,
-                phone: phone,
-                email: email,
+                name, phone, email, car,
+                spz: document.getElementById('spz').value,
                 note: document.getElementById('note').value,
                 id: Date.now()
             };
             
-            // Save to localStorage
             let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
             bookings.push(booking);
             localStorage.setItem('bookings', JSON.stringify(bookings));
             
-            // Show success
             document.getElementById('step3').style.display = 'none';
             document.getElementById('success').style.display = 'block';
-            
-            // In production, send email to naty@receptiv.dev
             console.log('New booking:', booking);
         }
 
-        // Initialize
         renderCalendar();
     </script>
 </body>
