@@ -4,60 +4,1060 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoPro Servis - Profesionálny Autoservis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        header { background: linear-gradient(135deg, #e63946 0%, #c1121f 100%); color: white; padding: 100px 20px; text-align: center; }
-        h1 { font-size: 3rem; margin-bottom: 20px; }
-        .btn { display: inline-block; background: white; color: #e63946; padding: 15px 40px; text-decoration: none; border-radius: 50px; margin-top: 20px; font-weight: bold; }
-        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
-        .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .service { background: #f8f9fa; padding: 40px; border-radius: 15px; text-align: center; }
-        .service h3 { color: #e63946; margin-bottom: 15px; }
-        .contact { background: #1d3557; color: white; text-align: center; }
-        nav { background: #0d1b2a; padding: 20px; text-align: center; }
-        nav a { color: white; text-decoration: none; margin: 0 20px; }
+        :root {
+            --primary: #e63946;
+            --primary-dark: #c1121f;
+            --secondary: #1d3557;
+            --dark: #0d1b2a;
+            --light: #f1faee;
+            --gray: #a8dadc;
+            --white: #ffffff;
+            --accent: #457b9d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: var(--light);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--dark);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-cta {
+            background: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .nav-cta:hover {
+            background: var(--primary-dark);
+        }
+        
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: 0.3s;
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(13,27,42,0.9) 0%, rgba(29,53,87,0.8) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231d3557" width="1200" height="800"/><g fill="%230d1b2a" opacity="0.3"><circle cx="200" cy="200" r="100"/><circle cx="800" cy="400" r="150"/><circle cx="1000" cy="100" r="80"/></g></svg>');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(230,57,70,0.1) 100%);
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+        }
+        
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark);
+        }
+        
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-car {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .hero-car::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 40px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+        
+        /* Emergency Banner */
+        .emergency-banner {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .emergency-banner a {
+            color: var(--white);
+            text-decoration: underline;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: var(--accent);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .divider {
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 1rem auto;
+        }
+        
+        /* Services */
+        .services {
+            background: var(--white);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .service-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .service-content p {
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+        
+        .service-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .service-list li {
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .service-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Why Choose Us */
+        .why-us {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
+        .why-us .section-header h2 {
+            color: var(--white);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .feature h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .feature p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* Stats */
+        .stats-section {
+            background: var(--primary);
+            padding: 3rem 5%;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .stat-item {
+            color: var(--white);
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Pricing */
+        .pricing {
+            background: var(--light);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured::before {
+            content: 'ODPORÚČAME';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .pricing-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-tag span {
+            font-size: 1rem;
+            color: var(--accent);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Contact */
+        .contact {
+            background: var(--dark);
+            color: var(--white);
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .contact-form {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+        }
+        
+        .contact-form h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .contact-form .btn {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        /* Map */
+        .map-section {
+            padding: 0;
+            height: 400px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--white);
+        }
+        
+        /* Footer */
+        footer {
+            background: #0a1520;
+            color: var(--white);
+            padding: 3rem 5% 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: var(--gray);
+            text-decoration: none;
+            line-height: 2;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-car {
+                height: 200px;
+                font-size: 5rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
     <nav>
-        <a href="#home">Domov</a>
-        <a href="#services">Služby</a>
-        <a href="#contact">Kontakt</a>
-        <a href="rezervacia.html">Rezervácia</a>
+        <div class="logo">
+            <div class="logo-icon">🔧</div>
+            Auto<span>Pro</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Domov</a></li>
+            <li><a href="#services">Služby</a></li>
+            <li><a href="#why-us">Prečo my</a></li>
+            <li><a href="#pricing">Cenník</a></li>
+            <li><a href="#contact" class="nav-cta">Kontakt</a></li>
+        </ul>
+        <div class="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
 
-    <header id="home">
-        <h1>🔧 AutoPro Servis</h1>
-        <p>Profesionálny autoservis pre všetky značky vozidiel</p>
-        <a href="rezervacia.html" class="btn">Objednať sa online</a>
-    </header>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Profesionálny <span>Autoservis</span></h1>
+                <p>Diagnostika, opravy a údržba všetkých značiek vozidiel. Rýchlo, kvalitne a za férové ceny. Záruka na všetky práce.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn">📅 Objednať sa</a>
+                    <a href="#services" class="btn btn-outline">🔍 Naše služby</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-car">🚗</div>
+            </div>
+        </div>
+    </section>
 
-    <section id="services">
-        <h2>Naše služby</h2>
-        <div class="services">
-            <div class="service">
-                <h3>🔧 Mechanické opravy</h3>
-                <p>Opravy motora, prevodovky, podvozku a brzdového systému.</p>
+    <div class="emergency-banner">
+        <span>🚨 Pohotovosť 24/7:</span>
+        <a href="tel:+421900123456">+421 900 123 456</a>
+        <span>| Odťahová služba | Non-stop asistencia</span>
+    </div>
+
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>Naše Služby</h2>
+            <div class="divider"></div>
+            <p>Kompletný servis pre váš automobil</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-image">🔧</div>
+                <div class="service-content">
+                    <h3>Mechanické opravy</h3>
+                    <p>Opravy motora, prevodovky, podvozku a všetkých mechanických častí.</p>
+                    <ul class="service-list">
+                        <li>Oprava motorov</li>
+                        <li>Prevodovky</li>
+                        <li>Brzdový systém</li>
+                        <li>Podvozok</li>
+                    </ul>
+                </div>
             </div>
-            <div class="service">
-                <h3>🔌 Elektroservis</h3>
-                <p>Diagnostika a oprava elektrických systémov vozidiel.</p>
+            <div class="service-card">
+                <div class="service-image">🔌</div>
+                <div class="service-content">
+                    <h3>Elektroservis</h3>
+                    <p>Diagnostika a oprava elektrických systémov moderných vozidiel.</p>
+                    <ul class="service-list">
+                        <li>Počítačová diagnostika</li>
+                        <li>Oprava alternátorov</li>
+                        <li>Elektrická výbava</li>
+                        <li>Klimatizácia</li>
+                    </ul>
+                </div>
             </div>
-            <div class="service">
-                <h3>🛞 Pneuservis</h3>
-                <p>Výmena, vyváženie a uskladnenie pneumatík.</p>
+            <div class="service-card">
+                <div class="service-image">🛞</div>
+                <div class="service-content">
+                    <h3>Pneuservis</h3>
+                    <p>Kompletné služby pneuservisu vrátane uskladnenia pneumatík.</p>
+                    <ul class="service-list">
+                        <li>Výmena pneumatík</li>
+                        <li>Vyváženie kolies</li>
+                        <li>Oprava defektov</li>
+                        <li>Sezónne uskladnenie</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🛢️</div>
+                <div class="service-content">
+                    <h3>Pravidelný servis</h3>
+                    <p>Preventívna údržba pre dlhú životnosť vášho vozidla.</p>
+                    <ul class="service-list">
+                        <li>Výmena oleja a filtrov</li>
+                        <li>Kontrola brzd</li>
+                        <li>Kontrola svetiel</li>
+                        <li>STK príprava</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🚗</div>
+                <div class="service-content">
+                    <h3>Karoséria & Lak</h3>
+                    <p>Opravy karosérie, lakovnícke práce a odstraňovanie preliačin.</p>
+                    <ul class="service-list">
+                        <li>Opravy po nehode</li>
+                        <li>Lakovanie</li>
+                        <li>Odstraňovanie preliačin</li>
+                        <li>Protihluková úprava</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">⚡</div>
+                <div class="service-content">
+                    <h3>Hybrid & Elektro</h3>
+                    <p>Špecializovaný servis pre hybridné a elektrické vozidlá.</p>
+                    <ul class="service-list">
+                        <li>Diagnostika batérií</li>
+                        <li>Údržba elektromotorov</li>
+                        <li>Softvérové aktualizácie</li>
+                        <li>Nabíjacie stanice</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us" id="why-us">
+        <div class="section-header">
+            <h2>Prečo si vybrať nás?</h2>
+            <div class="divider"></div>
+            <p style="color: var(--gray);">To, čo nás odlišuje od konkurencie</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Rýchly servis</h3>
+                <p>Väčšinu opráv vykonáme do 24 hodín. Rezervujte si termín online.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Záruka kvality</h3>
+                <p>Na všetky práce a diely poskytujeme záruku minimálne 24 mesiacov.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💰</div>
+                <h3>Férové ceny</h3>
+                <p>Transparentný cenník. Vždy vás informujeme o cene pred opravou.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎓</div>
+                <h3>Odborníci</h3>
+                <p>Náš tím má certifikáty od výrobcov a pravidelné školenia.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Rokov skúseností</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15000+</div>
+                <div class="stat-label">Opravených áut</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Spokojných klientov</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Mechanikov</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <h2>Cenník</h2>
+            <div class="divider"></div>
+            <p>Transparentné ceny bez skrytých poplatkov</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Základná prehliadka</h3>
+                <div class="price-tag">29€</div>
+                <ul class="pricing-features">
+                    <li>Kontrola tekutín</li>
+                    <li>Kontrola brzd</li>
+                    <li>Kontrola svetiel</li>
+                    <li>Kontrola pneumatík</li>
+                    <li>Protokol o stave</li>
+                </ul>
+                <a href="#contact" class="btn">Objednať</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Malý servis</h3>
+                <div class="price-tag">89€ <span>od</span></div>
+                <ul class="pricing-features">
+                    <li>Výmena oleja a filtra</li>
+                    <li>Kontrola všetkých systémov</li>
+                    <li>Nastavenie geometrie</li>
+                    <li>Doplňenie kvapalín</li>
+                    <li>24 mes. záruka</li>
+                </ul>
+                <a href="#contact" class="btn">Objednať</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Veľký servis</h3>
+                <div class="price-tag">189€ <span>od</span></div>
+                <ul class="pricing-features">
+                    <li>Všetko z malého servisu</li>
+                    <li>Výmena všetkých filtrov</li>
+                    <li>Výmena sviečok</li>
+                    <li>Kontrola prevodovky</li>
+                    <li>24 mes. záruka</li>
+                </ul>
+                <a href="#contact" class="btn">Objednať</a>
             </div>
         </div>
     </section>
 
     <section class="contact" id="contact">
-        <h2>Kontakt</h2>
-        <p>📞 0900 000 000</p>
-        <p>📍 Bratislava, Slovensko</p>
-        <p>✉️ info@autoproservis.sk</p>
-        <br>
-        <a href="rezervacia.html" class="btn">Online rezervácia</a>
+        <div class="section-header">
+            <h2 style="color: var(--white);">Kontakt</h2>
+            <div class="divider"></div>
+            <p style="color: var(--gray);">Objednajte sa ešte dnes</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Kontaktné informácie</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <strong>Adresa</strong><br>
+                        Priemyselná 456, 821 09 Bratislava
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <strong>Telefón</strong><br>
+                        +421 900 123 456 (non-stop)
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <strong>Email</strong><br>
+                        servis@autopro.sk
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🕐</div>
+                    <div>
+                        <strong>Otváracie hodiny</strong><br>
+                        Po-Pia: 7:00 - 18:00<br>
+                        So: 8:00 - 12:00
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Objednávka servisu</h3>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Meno</label>
+                            <input type="text" placeholder="Vaše meno" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefón</label>
+                            <input type="tel" placeholder="+421 ..." required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="vas@email.sk">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Značka vozidla</label>
+                            <input type="text" placeholder="napr. Škoda">
+                        </div>
+                        <div class="form-group">
+                            <label>Model/Rok</label>
+                            <input type="text" placeholder="napr. Octavia 2019">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Typ služby</label>
+                        <select required>
+                            <option value="">Vyberte službu</option>
+                            <option value="prehliadka">Základná prehliadka</option>
+                            <option value="maly">Malý servis</option>
+                            <option value="velky">Veľký servis</option>
+                            <option value="oprava">Oprava</option>
+                            <option value="pneu">Pneuservis</option>
+                            <option value="diagnostika">Diagnostika</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Popis problému</label>
+                        <textarea placeholder="Stručne popíšte problém..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">Odoslať objednávku</button>
+                </form>
+            </div>
+        </div>
     </section>
+
+    <div class="map-section">
+        🗺️ Mapa
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>AutoPro Servis</h4>
+                <p>Váš spoľahlivý partner pre starostlivosť o vozidlo. Profesionálny servis všetkých značiek.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Rýchle odkazy</h4>
+                <p><a href="#services">Služby</a></p>
+                <p><a href="#pricing">Cenník</a></p>
+                <p><a href="#contact">Kontakt</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Kontakt</h4>
+                <p>📞 +421 900 123 456</p>
+                <p>✉️ servis@autopro.sk</p>
+                <p>📍 Priemyselná 456, Bratislava</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 AutoPro Servis. Všetky práva vyhradené.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Ďakujeme za objednávku! Čoskoro vás budeme kontaktovať.');
+        });
+    </script>
 </body>
 </html>
